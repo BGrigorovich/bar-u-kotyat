@@ -17,7 +17,7 @@ class BarUKotyatStack(Stack):
 
         cocktails_table_name = 'Cocktails'
 
-        with open('update-menu.py', encoding='utf8') as fp:
+        with open('bar_u_kotyat/update-menu.py', encoding='utf8') as fp:
             handler_code = fp.read()
 
         lambda_fn = lambda_.Function(
@@ -34,7 +34,9 @@ class BarUKotyatStack(Stack):
             self,
             cocktails_table_name,
             table_name=cocktails_table_name,
-            partition_key=dynamodb.Attribute(name='id', type=dynamodb.AttributeType.String),
-            billing_mode=dynamodb.BillingMode.PayPerRequest)
-        dynamodb_cocktails_table.grant_stream_read(lambda_fn)
+            partition_key=dynamodb.Attribute(name='id', type=dynamodb.AttributeType.STRING),
+            # TODO: set RCU
+            billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST)
+        # todo: enable streams
+        # dynamodb_cocktails_table.grant_stream_read(lambda_fn)
         dynamodb_cocktails_table.grant_read_data(lambda_fn)
