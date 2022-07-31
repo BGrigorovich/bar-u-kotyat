@@ -1,3 +1,5 @@
+import subprocess
+
 from aws_cdk import (
     Stack,
     aws_lambda as lambda_,
@@ -16,16 +18,29 @@ class BarUKotyatStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         cocktails_table_name = 'Cocktails'
+        update_menu_lambda_name = 'update_menu'
 
-        with open('bar_u_kotyat/update-menu.py', encoding='utf8') as lambda_source:
+        requirements_file = f'lambda/{update_menu_lambda_name}/requirements.txt'
+        output_dir = f'lambda_layers/{update_menu_lambda_name}'
+        subprocess.check_call(
+            f'pip install -r {requirements_file} -t {output_dir}/python'.split()
+        )
+        update_menu_layers = [lambda_.LayerVersion(
+            self,
+            f'{update_menu_lambda_name}-dependencies',
+            code=lambda_.Code.from_asset(output_dir)
+        )]
+
+        with open(f'lambda/{update_menu_lambda_name}/handler.py', encoding='utf8') as lambda_source:
             lambda_fn = lambda_.Function(
                 self,
-                'RenderMenu',
+                update_menu_lambda_name,
                 code=lambda_.InlineCode(lambda_source.read()),
                 handler='index.main',
                 timeout=Duration.seconds(10),
                 runtime=lambda_.Runtime.PYTHON_3_9,
                 environment={'TABLE_NAME': cocktails_table_name},
+                layers=update_menu_layers,
             )
 
         dynamodb_cocktails_table = dynamodb.Table(
@@ -56,10 +71,9 @@ class BarUKotyatStack(Stack):
         )
         bucket.grant_read_write(lambda_fn)
 
-        with open('bar_u_kotyat/menu_template.html', encoding='utf8') as menu_template:
-            s3_deployment.BucketDeployment(
-                self,
-                'Deploy menu_template.html',
-                destination_bucket=bucket,
-                sources=[s3_deployment.Source.data('menu_template.html', menu_template.read())]
-            )
+        s3_deployment.BucketDeployment(
+            self,
+            'Deploy assets',
+            destination_bucket=bucket,
+            sources=[s3_deployment.Source.asset('./assets')]
+        )

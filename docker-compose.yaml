@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  cdk:
+    build:
+      context: .
+    command: tail -f /dev/null
+    volumes:
+      - .:/code
