@@ -1,5 +1,6 @@
 import subprocess
 
+import aws_cdk as cdk
 from aws_cdk import (
     Stack,
     aws_lambda as lambda_,
@@ -47,7 +48,8 @@ class BarUKotyatStack(Stack):
             self,
             cocktails_table_name,
             table_name=cocktails_table_name,
-            partition_key=dynamodb.Attribute(name='id', type=dynamodb.AttributeType.STRING),
+            partition_key=dynamodb.Attribute(name='pk', type=dynamodb.AttributeType.STRING),
+            sort_key=dynamodb.Attribute(name='sk', type=dynamodb.AttributeType.STRING),
             stream=dynamodb.StreamViewType.KEYS_ONLY,
             billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST
         )
@@ -64,10 +66,14 @@ class BarUKotyatStack(Stack):
 
         bucket = s3.Bucket(
             self,
-            'BarUKotyat',
+            'S3 Bucket',
+            bucket_name='bar-u-kotyat',
             versioned=True,
             public_read_access=True,
-            website_index_document='menu.html'
+            website_index_document='menu.html',
+            # so CDK can redeploy without errors
+            auto_delete_objects=True,
+            removal_policy=cdk.RemovalPolicy.DESTROY,
         )
         bucket.grant_read_write(lambda_fn)
 

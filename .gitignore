@@ -5,7 +5,7 @@ __pycache__
 .venv
 *.egg-info
 .idea/
-lamda_layers/*
+lambda_layers
 
 # CDK asset staging directory
 .cdk.staging
