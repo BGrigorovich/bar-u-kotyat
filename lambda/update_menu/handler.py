@@ -39,7 +39,7 @@ def lambda_handler(event, context):
     )['Body'].read().decode('utf-8')
     rendered_template = jinja_env.from_string(html_template_string).render(**html_context)
 
-    s3.put_object(Body=rendered_template.encode(), Bucket=bucket_name, Key='menu.html')
+    s3.put_object(Body=rendered_template.encode(), Bucket=bucket_name, Key='menu.html', ContentType='text/html')
     return {
         'message': 'ok'
     }
