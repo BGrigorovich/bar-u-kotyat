@@ -8,21 +8,25 @@
             font-family: "OpenSans";
             src: url("OpenSans-Light.ttf") format("opentype")
         }
+
         body {
             background-color: #0e0e0e;
         }
+
         .cocktail {
-            margin-top: 1.5rem;
+            margin-top: 1.5vmax;
         }
+
         .cocktail-name {
-            font-size: 30px;
+            font-size: 4vmax;
             color: #ae8803;
             margin: auto;
             text-align: center;
         }
+
         .cocktail-ingredients {
             font-family: OpenSans;
-            font-size: 14px;
+            font-size: 2vmax;
             color: #c7c7c7;
             margin: auto;
             text-align: center;
@@ -30,15 +34,15 @@
     </style>
 </head>
 <body>
+{% for cocktail in cocktails %}
     <div class="cocktail">
-        {% for cocktail in cocktails %}
-            <div class="cocktail-name">
-                {{ cocktail.name }}
-            </div>
-            <div class="cocktail-ingredients">
-                {{ cocktail.ingredients }}
-            </div>
-        {% endfor %}
+        <div class="cocktail-name">
+            {{ cocktail.name }}
+        </div>
+        <div class="cocktail-ingredients">
+            {{ cocktail.ingredients }}
+        </div>
     </div>
+{% endfor %}
 </body>
 </html>

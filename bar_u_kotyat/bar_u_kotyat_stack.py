@@ -75,6 +75,7 @@ class BarUKotyatStack(Stack):
             versioned=True,
             public_read_access=True,
             website_index_document='menu.html',
+            object_ownership=s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
             # so CDK can redeploy without errors
             auto_delete_objects=True,
             removal_policy=cdk.RemovalPolicy.DESTROY,
