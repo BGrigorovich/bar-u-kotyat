@@ -19,6 +19,7 @@ class BarUKotyatStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         cocktails_table_name = 'Cocktails'
+        bucket_name = 'bar-u-kotyat'
         update_menu_lambda_name = 'update_menu'
 
         requirements_file = f'lambda/{update_menu_lambda_name}/requirements.txt'
@@ -37,10 +38,13 @@ class BarUKotyatStack(Stack):
                 self,
                 update_menu_lambda_name,
                 code=lambda_.InlineCode(lambda_source.read()),
-                handler='index.main',
+                handler='index.lambda_handler',
                 timeout=Duration.seconds(10),
                 runtime=lambda_.Runtime.PYTHON_3_9,
-                environment={'TABLE_NAME': cocktails_table_name},
+                environment={
+                    'TABLE_NAME': cocktails_table_name,
+                    'BUCKET_NAME': bucket_name
+                },
                 layers=update_menu_layers,
             )
 
@@ -67,7 +71,7 @@ class BarUKotyatStack(Stack):
         bucket = s3.Bucket(
             self,
             'S3 Bucket',
-            bucket_name='bar-u-kotyat',
+            bucket_name=bucket_name,
             versioned=True,
             public_read_access=True,
             website_index_document='menu.html',

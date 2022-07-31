@@ -31,36 +31,14 @@
 </head>
 <body>
     <div class="cocktail">
-        <div class="cocktail-name">
-            Margarita
-        </div>
-        <div class="cocktail-ingredients">
-            Tequila blanco, orange liqueur, lime juice, salt
-        </div>
-    </div>
-    <div class="cocktail">
-        <div class="cocktail-name">
-            Margarita
-        </div>
-        <div class="cocktail-ingredients">
-            Tequila blanco, orange liqueur, lime juice, salt
-        </div>
-    </div>
-    <div class="cocktail">
-        <div class="cocktail-name">
-            Margarita
-        </div>
-        <div class="cocktail-ingredients">
-            Tequila blanco, orange liqueur, lime juice, salt
-        </div>
-    </div>
-    <div class="cocktail">
-        <div class="cocktail-name">
-            Margarita
-        </div>
-        <div class="cocktail-ingredients">
-            Tequila blanco, orange liqueur, lime juice, salt
-        </div>
+        {% for cocktail in cocktails %}
+            <div class="cocktail-name">
+                {{ cocktail.name }}
+            </div>
+            <div class="cocktail-ingredients">
+                {{ cocktail.ingredients }}
+            </div>
+        {% endfor %}
     </div>
 </body>
 </html>
