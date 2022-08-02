@@ -11,15 +11,33 @@
 
         body {
             background-color: #0e0e0e;
+            background-image: url("background.jpg");
+            background-attachment: fixed;
+            background-size: cover;
+            {#background-position: 50% 0;#}
+            background-position: 100% 0;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        .cocktails {
+            padding-bottom: 17vmax;
         }
 
         .cocktail {
-            margin-top: 1.5vmax;
+            margin-bottom: 1.5vmax;
+        }
+
+        .cocktail-group {
+            font-size: 5vmax;
+            color: #64C0FF;
+            margin: auto;
+            text-align: center;
         }
 
         .cocktail-name {
-            font-size: 4vmax;
-            color: #ae8803;
+            font-size: 3.5vmax;
+            color: #793e27;
             margin: auto;
             text-align: center;
         }
@@ -27,13 +45,15 @@
         .cocktail-ingredients {
             font-family: OpenSans;
             font-size: 2vmax;
-            color: #c7c7c7;
+            color: #483d03;
             margin: auto;
             text-align: center;
         }
     </style>
 </head>
 <body>
+{#<body data-stellar-background-ratio="0.5">#}
+<div class="cocktails">
 {% for cocktail in cocktails %}
     <div class="cocktail">
         <div class="cocktail-name">
@@ -44,5 +64,16 @@
         </div>
     </div>
 {% endfor %}
+</div>
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" integrity="sha512-jGR1T3dQerLCSm/IGEGbndPwzszJBlKQ5Br9vuB0Pw2iyxOy+7AK+lJcCC8eaXyz/9du+bkCy4HXxByhxkHf+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.1/jquery.stellar.js" integrity="sha512-tsoJ9kYkC/+fPBeXFf2MIHzJNN0IbY9yIkd8ED04FEoK9gYJjgRwlqiVQIiRYCKoG+jmh197ONmSPUufwAYk4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
+{#<script>#}
+{#$(document).ready(function(){#}
+{#    $('body').stellar({#}
+{#        horizontalScrolling: false,#}
+{#        verticalOffset: 0#}
+{#    });#}
+{#});#}
+{#</script>#}
 </body>
 </html>
