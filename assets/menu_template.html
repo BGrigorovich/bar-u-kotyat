@@ -54,15 +54,20 @@
 <body>
 {#<body data-stellar-background-ratio="0.5">#}
 <div class="cocktails">
-{% for cocktail in cocktails %}
-    <div class="cocktail">
-        <div class="cocktail-name">
-            {{ cocktail.name }}
-        </div>
-        <div class="cocktail-ingredients">
-            {{ cocktail.ingredients }}
-        </div>
+{% for group_name, cocktails in cocktail_groups.items() %}
+    <div class="cocktail-group">
+        {{ group_name }}
     </div>
+    {% for cocktail in cocktails %}
+        <div class="cocktail">
+            <div class="cocktail-name">
+                {{ cocktail.name }}
+            </div>
+            <div class="cocktail-ingredients">
+                {{ cocktail.ingredients }}
+            </div>
+        </div>
+    {% endfor %}
 {% endfor %}
 </div>
 {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" integrity="sha512-jGR1T3dQerLCSm/IGEGbndPwzszJBlKQ5Br9vuB0Pw2iyxOy+7AK+lJcCC8eaXyz/9du+bkCy4HXxByhxkHf+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
