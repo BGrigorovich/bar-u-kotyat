@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass, field, replace
+from dataclasses import dataclass, field
 from math import inf
 from typing import List
 
@@ -64,17 +64,12 @@ def lambda_handler(event, context):
 
         if cocktail['sk'].startswith('cocktail#'):
             cocktail['name'] = cocktail.pop('sk').replace('cocktail#', '')
-            cocktail = Cocktail(**cocktail)
-            if cocktail.available:
-                cocktail_group.cocktails.append(cocktail)
+            cocktail_group.cocktails.append(Cocktail(**cocktail))
         else:
             cocktail_group.order = cocktail.get('order', inf)
             cocktail_group.available = cocktail.get('available', True)
 
-    cocktail_groups = [
-        cocktail_group for cocktail_group in sorted(cocktail_groups, key=lambda group: group.order)
-        if cocktail_group.available
-    ]
+    cocktail_groups.sort(key=lambda group: group.order)
     for cocktail_group in cocktail_groups:
         cocktail_group.cocktails.sort(key=lambda c: c.order)
     html_context = dict(
