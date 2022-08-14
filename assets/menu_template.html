@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="#0e0e0e" />
+    <meta name="msapplication-navbutton-color" content="#0e0e0e">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0e0e0e">
     <title>Бар "У Котят"</title>
     <style>
         @font-face {
@@ -11,50 +14,59 @@
 
         body {
             background-color: #0e0e0e;
-            background-image: url("background.jpg");
-            background-attachment: fixed;
-            background-size: cover;
-            {#background-position: 50% 0;#}
-            background-position: 100% 0;
-            background-repeat: no-repeat;
-            height: 100vh;
         }
 
         .cocktails {
-            padding-bottom: 17vmax;
+            padding-bottom: 5vmax;
         }
 
         .cocktail {
-            margin-bottom: 1.5vmax;
+            margin-bottom: 1.5vh;
         }
 
         .cocktail-group {
-            font-size: 5vmax;
-            color: #64C0FF;
-            margin: auto;
+            font-size: 5vh;
+            color: #fff;
+            margin: 3vh auto 1vh;
             text-align: center;
         }
 
         .cocktail-name {
-            font-size: 3.5vmax;
-            color: #793e27;
-            margin: auto;
-            text-align: center;
+            font-size: 3.5vh;
+            color: #c7c7c7;
+            margin: auto 3vw;
         }
 
         .cocktail-ingredients {
             font-family: OpenSans;
-            font-size: 2vmax;
-            color: #483d03;
+            font-size: 2vh;
+            color: #ae8803;
+            margin: auto 3vw;
+        }
+
+        .head-img {
+            width: 60%;
             margin: auto;
-            text-align: center;
+        }
+
+        .head-img img {
+            max-width: 100%;
+        }
+
+        @media screen and (orientation:landscape) {
+            .cocktails {
+                width: 40%;
+                margin: auto;
+            }
         }
     </style>
 </head>
 <body>
-{#<body data-stellar-background-ratio="0.5">#}
 <div class="cocktails">
 {% for group_name, cocktails in cocktail_groups.items() %}
+    <div class="head-img">
+        <img src="logo.svg">
+    </div>
     <div class="cocktail-group">
         {{ group_name }}
     </div>
@@ -70,15 +82,5 @@
     {% endfor %}
 {% endfor %}
 </div>
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" integrity="sha512-jGR1T3dQerLCSm/IGEGbndPwzszJBlKQ5Br9vuB0Pw2iyxOy+7AK+lJcCC8eaXyz/9du+bkCy4HXxByhxkHf+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.1/jquery.stellar.js" integrity="sha512-tsoJ9kYkC/+fPBeXFf2MIHzJNN0IbY9yIkd8ED04FEoK9gYJjgRwlqiVQIiRYCKoG+jmh197ONmSPUufwAYk4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
-{#<script>#}
-{#$(document).ready(function(){#}
-{#    $('body').stellar({#}
-{#        horizontalScrolling: false,#}
-{#        verticalOffset: 0#}
-{#    });#}
-{#});#}
-{#</script>#}
 </body>
 </html>
