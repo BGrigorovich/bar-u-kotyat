@@ -63,20 +63,20 @@
 </head>
 <body>
 <div class="cocktails">
-{% for group_name, cocktails in cocktail_groups.items() %}
-    <div class="head-img">
-        <img src="logo.svg">
-    </div>
+<div class="head-img">
+    <img src="logo.svg">
+</div>
+{% for cocktail_group in cocktail_groups %}
     <div class="cocktail-group">
-        {{ group_name }}
+        {{ cocktail_group.name }}
     </div>
-    {% for cocktail in cocktails %}
+    {% for cocktail in cocktail_group.cocktails %}
         <div class="cocktail">
             <div class="cocktail-name">
                 {{ cocktail.name }}
             </div>
             <div class="cocktail-ingredients">
-                {{ cocktail.ingredients }}
+                {{ cocktail.ingredients_str }}
             </div>
         </div>
     {% endfor %}

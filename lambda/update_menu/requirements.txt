@@ -1,2 +1,3 @@
 boto3==1.24.42
+dynamodb-json==1.3
 Jinja2==3.1.2
