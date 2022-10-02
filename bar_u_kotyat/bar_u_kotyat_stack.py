@@ -7,7 +7,8 @@ from aws_cdk import (
     aws_dynamodb as dynamodb, Duration,
     aws_s3 as s3,
     aws_s3_deployment as s3_deployment,
-    aws_lambda_event_sources as lambda_event_sources
+    aws_lambda_event_sources as lambda_event_sources,
+    aws_iam as iam,
 )
 
 from constructs import Construct
@@ -75,12 +76,20 @@ class BarUKotyatStack(Stack):
             versioned=True,
             public_read_access=True,
             website_index_document='menu.html',
+            website_error_document='menu.html',
             object_ownership=s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
             # so CDK can redeploy without errors
             auto_delete_objects=True,
             removal_policy=cdk.RemovalPolicy.DESTROY,
         )
         bucket.grant_read_write(lambda_fn)
+
+        bucket_policy = iam.PolicyStatement(
+            actions=["s3:GetObject"],
+            resources=[bucket.arn_for_objects("*")],
+            principals=[iam.AnyPrincipal()],
+        )
+        bucket.add_to_resource_policy(bucket_policy)
 
         s3_deployment.BucketDeployment(
             self,
